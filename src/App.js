@@ -17,6 +17,21 @@ class App extends React.Component {
     }
   }
 
+  markAsDone = (markedId) => {
+    this.setState({
+      task: this.state.task.map((t) => {
+        if (t.id === markedId){
+          return {
+            ...t, 
+            completed: !t.completed
+          } 
+        } else {
+          return t
+        }
+      })
+    })
+  }
+
   addTask = (task) => {
     const newTask = {
         task: task,
@@ -32,7 +47,10 @@ class App extends React.Component {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        <TodoList tasks={this.state.task} />
+        <TodoList 
+        tasks={this.state.task} 
+        markAsDone={this.markAsDone}
+        />
         <TodoForm addTask={this.addTask} />
       </div>
     );
